@@ -1,0 +1,16 @@
+FROM centos:7
+
+RUN yum -y install epel-release \
+ && yum -y update \
+ && yum -y install python-pip \
+ && pip install flask
+
+ADD start_centos.sh /start.sh
+
+ADD server.py /server.py
+
+RUN chmod +x /start.sh
+
+EXPOSE 9993/udp 5000
+
+ENTRYPOINT ["/start.sh"]
